@@ -48,7 +48,7 @@ function(littlefs_create_partition_image partition base_dir)
 		# contents of the base dir changing.
 
 		add_custom_target(littlefs_${partition}_bin ALL
-			COMMAND ${littlefs_py} create ${base_dir_full_path} -v --image=${image_file} --fs-size=${size} --name-max=${CONFIG_LITTLEFS_OBJ_NAME_LEN} --block-size=4096
+			COMMAND ${littlefs_py} create ${base_dir_full_path} ${image_file} -v --fs-size=${size} --name-max=${CONFIG_LITTLEFS_OBJ_NAME_LEN} --block-size=4096
 			DEPENDS ${arg_DEPENDS} ${littlefs_py_venv}
 			)
 
@@ -58,7 +58,7 @@ function(littlefs_create_partition_image partition base_dir)
 
 		set(IDF_VER_NO_V "${IDF_VERSION_MAJOR}.${IDF_VERSION_MINOR}")
 
-		if(${IDF_VER_NO_V} VERSION_LESS 4.3)
+		if(${IDF_VER_NO_V} VERSION_LESS 5.0)
 			message(WARNING "Unsupported/unmaintained/deprecated ESP-IDF version ${IDF_VER}")
 		endif()
 
